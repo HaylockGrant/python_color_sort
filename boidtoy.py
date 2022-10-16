@@ -11,17 +11,23 @@ from coloredBoid import *
 pygame.init()
 
 radius = 25
+
+#initialize the colors
+colors = ["ffffff"]
+
+#calculate the size of the screen based on the number of colors
+n = (math.ceil((3+ math.sqrt((12*len(colors) -3)))/6)-1)*2 +1
+width = n*radius*2
+height = width
+
+screen = pygame.display.set_mode((width, height))
+
 #initilize boids
 boids = []
 #white boid at the center of the screen for testing
 boids.append(boid(("ffffff"), round(width/2), round(height/2), radius))
 
-#calculate the size of the screen based on the number of boids
-n = (math.ceil((3+ math.sqrt((12*len(boids) -3)))/6)-1)*2 +1
-width = n*radius*2
-height = width
 
-screen = pygame.display.set_mode((width, height))
 
 
 
