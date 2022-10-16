@@ -1,4 +1,6 @@
 import cv2 
+#pip3 install opencv-python
+
 #this function converts a color from RGB to cieLAB
 def rgbtolab(r,g,b):
     r=r/255
