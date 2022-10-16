@@ -5,6 +5,7 @@ import math
 from ciede2000 import *
 from colorMan import *
 from physicsMan import *
+from coloredBoid import *
 
 
 #initialize the screen and display
@@ -13,8 +14,16 @@ pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 
+global radius = 25
+
 #initilize clock
 clock = pygame.time.Clock()
+
+#initilize boids
+boids = []
+#white boid at the center of the screen
+boids.append(boid(("ffffff"), round(width/2), round(height/2), radius))
+
 
 running = True
 while running:
@@ -34,16 +43,18 @@ while running:
                 #if keyboard space down, draw white
                 if event.key == pygame.K_SPACE:
                     screen.fill((255,255,255))
-                    redraw = True
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     screen.fill((0,0,0))
-                    redraw = True
     #check if game loop has been exited
     if not running:
         break
     
     #physics loop
-    if(doPhysics() or redraw): #the physics loop returns true if there was an update to the screen
-        doDraw()
+    
+    #draw loop
+    for boid in boids:
+        boid.draw(screen)
+    
+    pygame.display.update()
     clock.tick(30)
