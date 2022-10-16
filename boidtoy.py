@@ -5,11 +5,15 @@ import math
 from ciede2000 import *
 from colorMan import *
 
+
 #initialize the screen and display
 pygame.init()
 #in the future, the screen size will be determined by the number of boids.  For now, it is a fixed size
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
+
+#initilize clock
+clock = pygame.time.Clock()
 
 running = True
 while running:
@@ -36,7 +40,7 @@ while running:
                     redraw = True
     if(doPhysics() or redraw): #the physics loop returns true if there was an update to the screen
         doDraw()
-
+    clock.tick(30)
 
 
 #physics loop
