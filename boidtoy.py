@@ -39,6 +39,11 @@ while running:
                 if event.key == pygame.K_SPACE:
                     screen.fill((0,0,0))
                     redraw = True
+    #check if game loop has been exited
+    if not running:
+        break
+    
+    #physics loop
     if(doPhysics() or redraw): #the physics loop returns true if there was an update to the screen
         doDraw()
     clock.tick(30)
