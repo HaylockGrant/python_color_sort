@@ -14,7 +14,7 @@ pygame.init()
 width, height = 800, 600
 screen = pygame.display.set_mode((width, height))
 
-global radius = 25
+radius = 25
 
 #initilize clock
 clock = pygame.time.Clock()
