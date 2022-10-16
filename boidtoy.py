@@ -4,26 +4,29 @@ import random
 import math
 from ciede2000 import *
 from colorMan import *
-from physicsMan import *
 from coloredBoid import *
 
 
 #initialize the screen and display
 pygame.init()
-#in the future, the screen size will be determined by the number of boids.  For now, it is a fixed size
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
 
 radius = 25
+#initilize boids
+boids = []
+#white boid at the center of the screen for testing
+boids.append(boid(("ffffff"), round(width/2), round(height/2), radius))
+
+#calculate the size of the screen based on the number of boids
+n = (math.ceil((3+ math.sqrt((12*len(boids) -3)))/6)-1)*2 +1
+width = n*radius*2
+height = width
+
+screen = pygame.display.set_mode((width, height))
+
+
 
 #initilize clock
 clock = pygame.time.Clock()
-
-#initilize boids
-boids = []
-#white boid at the center of the screen
-boids.append(boid(("ffffff"), round(width/2), round(height/2), radius))
-
 
 running = True
 while running:

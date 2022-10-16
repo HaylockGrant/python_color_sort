@@ -12,5 +12,5 @@ class boid:
 
     #draw the boid to the screen
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(screen, hextorgb(self.color), (self.x, self.y), self.radius)
     
