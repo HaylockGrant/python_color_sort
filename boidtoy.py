@@ -10,25 +10,30 @@ from coloredBoid import *
 #initialize the screen and display
 pygame.init()
 
-radius = 25
+radius = 10
 
 #initialize the colors
 colors = ["ffffff"]
 
 #calculate the size of the screen based on the number of colors
+if(len(colors) < 1):
+    print("Error: No colors found")
+    exit()
 n = (math.ceil((3+ math.sqrt((12*len(colors) -3)))/6)-1)*2 +1
 width = n*radius*2
 height = width
 
 screen = pygame.display.set_mode((width, height))
+pygame.display.update()
+if(pygame.display.Info().current_w > width):
+    width, height = pygame.display.Info().current_w, pygame.display.Info().current_w
+    pygame.display.set_mode((width, height))
+
 
 #initilize boids
 boids = []
-#white boid at the center of the screen for testing
-boids.append(boid(("ffffff"), round(width/2), round(height/2), radius))
-
-
-
+for i in range(len(colors)):
+    boids.append(coloredBoid(colors[i], random.randint(0, width), random.randint(0, height), radius))
 
 
 #initilize clock
