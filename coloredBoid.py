@@ -51,3 +51,9 @@ class boid:
         #move boid
         self.x += self.momentum * math.cos(self.angle)
         self.y += self.momentum * math.sin(self.angle)
+
+    def degToAngle(deg)
+        return (deg % 360)/360 * math.pi * 2
+
+    def angleToDeg(angle)
+        return angle/(math.pi * 2) * 360
