@@ -35,7 +35,14 @@ if(pygame.display.Info().current_w > width):
 #initilize boids
 boids = []
 for i in range(len(colors)):
-    boids.append(boid(colors[i], random.randint(radius, width-radius), random.randint(radius, height-radius), radius))
+    b = boid(colors[i], random.randint(radius, width-radius), random.randint(radius, height-radius), radius)
+    for buddy in boids:
+        while(b.areTouching(buddy)):
+            b.x = random.randint(radius, width-radius)
+            b.y = random.randint(radius, height-radius)
+            print("buddy collision")
+    boids.append(b)
+
 
 #give each boid a random momentum and angle
 for boid in boids:
@@ -64,9 +71,9 @@ while running:
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (255, 255, 255)
 
-                if event.key == pygame.K_up:
+                if event.key == pygame.K_UP:
                     for boid in boids:
-                        boid.angle = 0
+                        boid.angle = degToRad(90)
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (0, 0, 0)

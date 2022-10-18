@@ -16,13 +16,3 @@ from hashTable import *
 #         break
 #     pygame.display.update()
 # pygame.quit()
-
-tableMap = HashTable(1)
-tableMap.set_val("red", (255, 0, 0))
-tableMap.set_val("green", (0, 255, 0))
-tableMap.set_val("blue", (0, 0, 255))
-
-print(tableMap.get_val("red"))
-print(tableMap.get_val("green"))
-print(tableMap.get_val("blue"))
-print(tableMap.get_val("purple"))

@@ -9,6 +9,12 @@ class boid:
     count = 0
     boids = []
 
+    def degToRad(deg):
+        return deg * math.pi / 180
+
+    def radToDeg(rad):
+        return rad * 180 / math.pi
+
     def __init__(self, color, x, y, radius):
         self.color = color
         self.x = x
@@ -22,6 +28,18 @@ class boid:
             self.distanceMap.set_val(buddy, self.calculateColorDifferance(buddy))
         boid.boids.append(self)
         boid.count += 1
+    
+    def getAngleBetweenBoids(self, boid):
+        rad = math.atan2(boid.y - self.y, boid.x - self.x)
+        if(rad < 0):
+            rad += 2*math.pi
+        return rad
+
+    def getDistanceBetweenBoids(self, boid):
+        return math.sqrt((boid.x - self.x)**2 + (boid.y - self.y)**2)
+    
+    def areTouching(self, boid):
+        return self.getDistanceBetweenBoids(boid) <= self.radius + boid.radius
 
     #draw the boid to the screen
     def draw(self, screen):
@@ -51,9 +69,3 @@ class boid:
         #move boid
         self.x += self.momentum * math.cos(self.angle)
         self.y += self.momentum * math.sin(self.angle)
-
-    def degToAngle(deg):
-        return (deg % 360)/360 * math.pi * 2
-
-    def angleToDeg(angle):
-        return angle/(math.pi * 2) * 360
