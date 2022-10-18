@@ -40,7 +40,7 @@ for i in range(len(colors)):
 #give each boid a random momentum and angle
 for boid in boids:
     boid.momentum = random.randint(1,5)/10
-    boid.angle = random.uniform(0
+    boid.angle = random.uniform(0, 2*math.pi)
 
 #initilize clock
 clock = pygame.time.Clock()
