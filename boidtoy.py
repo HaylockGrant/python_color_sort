@@ -39,8 +39,8 @@ for i in range(len(colors)):
 
 #give each boid a random momentum and angle
 for boid in boids:
-    boid.momentum = random.randint(1,5)/20
-    boid.angle = random.uniform(0, 2*math.pi)
+    boid.momentum = random.randint(1,5)/10
+    boid.angle = random.uniform(0, 359)
 
 #initilize clock
 clock = pygame.time.Clock()
@@ -48,7 +48,7 @@ clock = pygame.time.Clock()
 running = True
 while running:
     #input loop
-    redraw = False
+    screenfillColor = (0, 0, 0)
     for event in pygame.event.get():
         match event.type:
             case pygame.QUIT:
@@ -62,10 +62,10 @@ while running:
                     break
                 #if keyboard space down, draw white
                 if event.key == pygame.K_SPACE:
-                    screen.fill((255,255,255))
+                    screenfillColor = (255, 255, 255)
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    screen.fill((0,0,0))
+                    screenfillColor = (0, 0, 0)
     #check if game loop has been exited
     if not running:
         break
@@ -79,6 +79,7 @@ while running:
         #additional physics for boids
         boid.move()
     #draw loop
+    screen.fill(screenfillColor)
     for boid in boids:
         boid.draw(screen)
     pygame.display.update()

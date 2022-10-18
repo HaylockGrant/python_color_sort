@@ -16,10 +16,10 @@ class boid:
         self.radius = radius
         self.momentum = 0
         self.angle = 0
-        self.distanceMap = HashTable(0)
-        for boid in boid.boids:
-            boid.distanceMap.set_val(self, self.calculateColorDifferance(boid))
-            self.distanceMap.set_val(boid, self.calculateColorDifferance(boid))
+        self.distanceMap = HashTable(1)
+        for buddy in boid.boids:
+            buddy.distanceMap.set_val(self, self.calculateColorDifferance(buddy))
+            self.distanceMap.set_val(buddy, self.calculateColorDifferance(buddy))
         boid.boids.append(self)
         boid.count += 1
 
