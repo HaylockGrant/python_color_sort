@@ -2,6 +2,7 @@ import pygame
 import random
 from ciede2000 import *
 from colorMan import *
+from hashTable import *
 
 class boid:
     #static variables

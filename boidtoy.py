@@ -73,11 +73,11 @@ while running:
     for boid in boids:
         otherboids = boids.copy()
         otherboids.remove(boid)
-        for otherboid in otherboids:
+        #for otherboid in otherboids: #commented out because it isn't finished
             #do physics...
+        
         #additional physics for boids
         boid.move()
-
     #draw loop
     for boid in boids:
         boid.draw(screen)
