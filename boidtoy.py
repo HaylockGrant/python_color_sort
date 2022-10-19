@@ -72,8 +72,12 @@ while running:
                     screenfillColor = (255, 255, 255)
 
                 if event.key == pygame.K_UP:
-                    for boid in boids:
-                        boid.angle = coloredBoid.degToRad(90)
+                    for boy in boids:
+                        boy.speedUp(0.1)
+
+                if event.key == pygame.K_DOWN:
+                    for boy in boids:
+                        boy.slowDown(0.1)
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (0, 0, 0)
@@ -86,8 +90,15 @@ while running:
         otherboids.remove(boy)
         for otherboid in otherboids: #commented out because it isn't finished
             if(boy.areTouching(otherboid)):
-                boy.slowDown(1)
-                boy.combineVelocity(2 * boy.touchingPersentage(otherboid), boy.getAngleBetweenBoids(otherboid)+180)
+                boy.setAngle(boy.getAngleBetweenBoids(otherboid) + 180)
+                otherboid.setAngle(otherboid.getAngleBetweenBoids(boy) + 180)
+                touchingPersentage = boy.touchingPersentage(otherboid)
+                boy.speedUp(1*touchingPersentage)
+                otherboid.speedUp(1*touchingPersentage)
+                boy.move()
+                otherboid.move()
+                boy.slowDown(1*touchingPersentage)
+                otherboid.slowDown(1*touchingPersentage)
         #additional physics for boids
         boy.move()
         #boy.friction()

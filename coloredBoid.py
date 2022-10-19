@@ -117,3 +117,7 @@ class boid:
         if self.momentum < 0:
             self.momentum = 0
 
+    def speedUp(self, amount):
+        self.momentum += amount
+        
+
