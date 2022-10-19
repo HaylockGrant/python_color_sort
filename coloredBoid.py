@@ -29,8 +29,8 @@ class boid:
         boid.boids.append(self)
         boid.count += 1
     
-    def getAngleBetweenBoids(self, boid): #returns the angle between the boids as degrees
-        rad = math.atan2(boid.y - self.y, boid.x - self.x)
+    def getAngleBetweenBoids(self, buddy): #returns the angle between the boids as degrees
+        rad = math.atan2(buddy.y - self.y, buddy.x - self.x)
         if(rad < 0):
             rad += 2*math.pi
         return boid.radToDeg(rad)
@@ -111,4 +111,9 @@ class boid:
         angle = boid.degToRad(angle)
         self.momentum = math.sqrt(self.momentum**2 + momentum**2 - 2*self.momentum*momentum*math.cos(self.angle - angle))
         self.angle = math.atan2(self.momentum*math.sin(self.angle - angle), self.momentum*math.cos(self.angle - angle) + momentum)
+
+    def slowDown(self, amount):
+        self.momentum -= amount
+        if self.momentum < 0:
+            self.momentum = 0
 

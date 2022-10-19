@@ -86,6 +86,7 @@ while running:
         otherboids.remove(boy)
         for otherboid in otherboids: #commented out because it isn't finished
             if(boy.areTouching(otherboid)):
+                boy.slowDown(1)
                 boy.combineVelocity(2 * boy.touchingPersentage(otherboid), boy.getAngleBetweenBoids(otherboid)+180)
         #additional physics for boids
         boy.move()
