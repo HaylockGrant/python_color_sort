@@ -29,17 +29,36 @@ class boid:
         boid.boids.append(self)
         boid.count += 1
     
-    def getAngleBetweenBoids(self, boid):
+    def getAngleBetweenBoids(self, boid): #returns the angle between the boids as degrees
         rad = math.atan2(boid.y - self.y, boid.x - self.x)
         if(rad < 0):
             rad += 2*math.pi
-        return rad
+        return boid.radToDeg(rad)
 
-    def getDistanceBetweenBoids(self, boid):
+    def getMomentum(self):
+        return self.momentum
+
+    def getAngle(self):
+        return boid.radToDeg(self.angle)
+
+    def setAngle(self, angle):
+        ang = boid.degToRad(angle)
+        while(ang > 2*math.pi):
+            ang -= 2*math.pi
+        while(ang < 0):
+            ang += 2*math.pi
+        self.angle = ang
+
+
+    def getDistanceBetweenBoids(self, boid): #returns the distance between the boids
         return math.sqrt((boid.x - self.x)**2 + (boid.y - self.y)**2)
     
-    def areTouching(self, boid):
+    def areTouching(self, boid): #returns true if the boids are touching
         return self.getDistanceBetweenBoids(boid) <= self.radius + boid.radius
+
+    def touchingPersentage(self, boid): #returns the persentage of the boids that are touching
+        distance = self.getDistanceBetweenBoids(boid)
+        return 1 - (distance/(self.radius + boid.radius))
 
     #draw the boid to the screen
     def draw(self, screen):
@@ -69,3 +88,27 @@ class boid:
         #move boid
         self.x += self.momentum * math.cos(self.angle)
         self.y += self.momentum * math.sin(self.angle)
+
+    def rotateClockwise(self, degrees):
+        angle = boid.degToRad(degrees)
+        self.angle += angle
+        while(self.angle > 2*math.pi):
+            self.angle -= 2*math.pi
+        return self.angle
+
+    def rotateCounterClockwise(self, degrees):
+        angle = boid.degToRad(degrees)
+        self.angle -= angle
+        while(self.angle < 0):
+            self.angle += 2*math.pi
+        return self.angle
+
+    def combineVelocity(self, momentum, angle):
+        while angle > 360:
+            angle -= 360
+        while angle < 0:
+            angle += 360
+        angle = boid.degToRad(angle)
+        self.momentum = math.sqrt(self.momentum**2 + momentum**2 - 2*self.momentum*momentum*math.cos(self.angle - angle))
+        self.angle = math.atan2(self.momentum*math.sin(self.angle - angle), self.momentum*math.cos(self.angle - angle) + momentum)
+

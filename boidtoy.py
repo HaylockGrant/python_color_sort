@@ -73,7 +73,7 @@ while running:
 
                 if event.key == pygame.K_UP:
                     for boid in boids:
-                        boid.angle = degToRad(90)
+                        boid.angle = coloredBoid.degToRad(90)
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (0, 0, 0)
@@ -81,17 +81,18 @@ while running:
     if not running:
         break
     #physics loop
-    for boid in boids:
+    for boy in boids:
         otherboids = boids.copy()
-        otherboids.remove(boid)
-        #for otherboid in otherboids: #commented out because it isn't finished
-            #do physics...
-        
+        otherboids.remove(boy)
+        for otherboid in otherboids: #commented out because it isn't finished
+            if(boy.areTouching(otherboid)):
+                boy.combineVelocity(2 * boy.touchingPersentage(otherboid), boy.getAngleBetweenBoids(otherboid)+180)
         #additional physics for boids
-        boid.move()
+        boy.move()
+        #boy.friction()
     #draw loop
     screen.fill(screenfillColor)
-    for boid in boids:
-        boid.draw(screen)
+    for boy in boids:
+        boy.draw(screen)
     pygame.display.update()
     clock.tick(30)
