@@ -19,9 +19,9 @@ class boid:
         self.color = color
         self.ringForBlack = False
         self.ringForWhite = False
-        if(ciede2000(hextolab(self.color), hextolab("000000")) < 10):
+        if(CIEDE2000(hextolab(self.color), hextolab("000000")) < 2.5):
             self.ringForBlack = True
-        if(ciede2000(hextolab(self.color), hextolab("ffffff")) < 10):
+        if(CIEDE2000(hextolab(self.color), hextolab("ffffff")) < 2.5):
             self.ringForWhite = True
         self.x = x
         self.y = y
@@ -43,6 +43,9 @@ class boid:
 
     def getMomentum(self):
         return self.momentum
+
+    def setMomentum(self, momentum):
+        self.momentum = momentum
 
     def getAngle(self):
         return boid.radToDeg(self.angle)
@@ -69,9 +72,9 @@ class boid:
     #draw the boid to the screen
     def draw(self, screen, invert = False):
         if(not invert and self.ringForBlack):
-            pygame.draw.circle(screen, hextorgb("ffffff"), (self.x, self.y), self.radius+1)
-        else if(invert and self.ringForWhite):
-            pygame.draw.circle(screen, hextorgb("000000"), (self.x, self.y), self.radius+1)
+            pygame.draw.circle(screen, hextorgb("2d2d2d"), (self.x, self.y), self.radius+1)
+        if(invert and self.ringForWhite):
+            pygame.draw.circle(screen, hextorgb("d2d2d2"), (self.x, self.y), self.radius+1)
         pygame.draw.circle(screen, hextorgb(self.color), (self.x, self.y), self.radius)
     
     def calculateColorDifferance(self, boid):

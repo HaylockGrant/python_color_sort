@@ -88,22 +88,30 @@ while running:
         break
     #physics loop
     for boy in boids:
+        #move the boid and apply friction
+        boy.move()
+        boy.slowDown(0.01)
+
+        #touching boids interaction
         otherboids = boids.copy()
         otherboids.remove(boy)
         for otherboid in otherboids: #commented out because it isn't finished
             if(boy.areTouching(otherboid)):
                 boy.setAngle(boy.getAngleBetweenBoids(otherboid) + 180)
                 otherboid.setAngle(otherboid.getAngleBetweenBoids(boy) + 180)
-                touchingPersentage = boy.touchingPersentage(otherboid)
-                boy.speedUp(1*touchingPersentage)
-                otherboid.speedUp(1*touchingPersentage)
                 boy.move()
                 otherboid.move()
-                boy.slowDown(1*touchingPersentage)
-                otherboid.slowDown(1*touchingPersentage)
-        #additional physics for boids
-        boy.move()
-        #boy.friction()
+                boy.slowDown(0.05) #friction
+                otherboid.slowDown(0.05) # friction
+                boyspeed = boy.getMomentum()
+                otherboidspeed = otherboid.getMomentum()
+                boyspeed.setMomentum(0.1)
+                otherboidspeed.setMomentum(0.1)
+                while(boy.areTouching(otherboid)):
+                    boy.move()
+                    otherboid.move()
+                boy.setMomentum(boyspeed)
+                otherboid.setMomentum(otherboidspeed)
     #draw loop
     if(invert): screen.fill((255,255,255))
     else: screen.fill((0,0,0))
