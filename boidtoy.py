@@ -105,8 +105,8 @@ while running:
                 otherboid.slowDown(0.05) # friction
                 boyspeed = boy.getMomentum()
                 otherboidspeed = otherboid.getMomentum()
-                boyspeed.setMomentum(0.1)
-                otherboidspeed.setMomentum(0.1)
+                boy.setMomentum(0.1)
+                otherboid.setMomentum(0.1)
                 while(boy.areTouching(otherboid)):
                     boy.move()
                     otherboid.move()
