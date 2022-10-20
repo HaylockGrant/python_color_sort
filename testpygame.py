@@ -18,6 +18,9 @@ from hashTable import *
 # pygame.quit()
 boida = boid("ffffff", 0, 0, 10)
 boidb = boid("000000", 0, 0, 10)
+boidc = boid("dad3e8", 0, 0, 10)
 print(boida.getDistanceBetweenBoids(boidb))
 print(boida.getAngleBetweenBoids(boidb))
 print(boidb.getAngleBetweenBoids(boida))
+print(boida.calculateColorDifferance(boidc))
+

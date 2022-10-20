@@ -17,6 +17,12 @@ class boid:
 
     def __init__(self, color, x, y, radius):
         self.color = color
+        self.ringForBlack = False
+        self.ringForWhite = False
+        if(ciede2000(hextolab(self.color), hextolab("000000")) < 10):
+            self.ringForBlack = True
+        if(ciede2000(hextolab(self.color), hextolab("ffffff")) < 10):
+            self.ringForWhite = True
         self.x = x
         self.y = y
         self.radius = radius
@@ -62,8 +68,10 @@ class boid:
 
     #draw the boid to the screen
     def draw(self, screen, invert = False):
-        if(not invert):pygame.draw.circle(screen, hextorgb("ffffff"), (self.x, self.y), self.radius+1)
-        else : pygame.draw.circle(screen, hextorgb("000000"), (self.x, self.y), self.radius+1)
+        if(not invert and self.ringForBlack):
+            pygame.draw.circle(screen, hextorgb("ffffff"), (self.x, self.y), self.radius+1)
+        else if(invert and self.ringForWhite):
+            pygame.draw.circle(screen, hextorgb("000000"), (self.x, self.y), self.radius+1)
         pygame.draw.circle(screen, hextorgb(self.color), (self.x, self.y), self.radius)
     
     def calculateColorDifferance(self, boid):
