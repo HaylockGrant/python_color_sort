@@ -61,8 +61,9 @@ class boid:
         return 1 - (distance/(self.radius + boid.radius))
 
     #draw the boid to the screen
-    def draw(self, screen):
-        pygame.draw.circle(screen, hextorgb("000000"), (self.x, self.y), self.radius+1)
+    def draw(self, screen, invert = False):
+        if(not invert):pygame.draw.circle(screen, hextorgb("ffffff"), (self.x, self.y), self.radius+1)
+        else : pygame.draw.circle(screen, hextorgb("000000"), (self.x, self.y), self.radius+1)
         pygame.draw.circle(screen, hextorgb(self.color), (self.x, self.y), self.radius)
     
     def calculateColorDifferance(self, boid):
@@ -119,5 +120,5 @@ class boid:
 
     def speedUp(self, amount):
         self.momentum += amount
-        
+
 

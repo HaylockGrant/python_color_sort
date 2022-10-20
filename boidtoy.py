@@ -53,7 +53,9 @@ for boid in boids:
 clock = pygame.time.Clock()
 #main loop
 running = True
-screenfillColor = (0, 0, 0)    
+screenfillColor = (0, 0, 0)
+invert = False
+spaceDown = False
 while running:
     #input loop
     for event in pygame.event.get():
@@ -70,7 +72,9 @@ while running:
                 #if keyboard space down, draw white
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (255, 255, 255)
-
+                    if(not spaceDown):
+                        invert = not invert
+                    spaceDown = True
                 if event.key == pygame.K_UP:
                     for boy in boids:
                         boy.speedUp(0.1)
@@ -81,6 +85,7 @@ while running:
             case pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     screenfillColor = (0, 0, 0)
+                    spaceDown = False
     #check if game loop has been exited
     if not running:
         break
@@ -105,6 +110,6 @@ while running:
     #draw loop
     screen.fill(screenfillColor)
     for boy in boids:
-        boy.draw(screen)
+        boy.draw(screen, invert)
     pygame.display.update()
     clock.tick(30)
